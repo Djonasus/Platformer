@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://da75667duugqq"]
+
+[ext_resource type="Texture2D" uid="uid://7qqbtsi1ic6n" path="res://Sprites/test-tex.png" id="1_wtv7k"]
+
+[resource]
+albedo_texture = ExtResource("1_wtv7k")
+uv1_triplanar = true
+texture_filter = 0
+grow_amount = 2.198

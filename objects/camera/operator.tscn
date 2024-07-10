@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://brfgpy42pvd2o"]
+
+[sub_resource type="GDScript" id="GDScript_460dh"]
+script/source = "extends Node3D
+class_name CinemachineOperator
+
+@export var Current : bool
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	await get_tree().process_frame
+	print(\"Operator\")
+	if Current:
+		SetMain()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func SetMain():
+	Cinemachine.MainOperator = self
+	Cinemachine.on_reconnect.emit()
+	#self.add_child(Cinemachine.MainCamera)
+"
+
+[node name="Operator" type="Node3D"]
+script = SubResource("GDScript_460dh")

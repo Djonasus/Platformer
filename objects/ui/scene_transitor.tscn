@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://dculran0rf84u"]
+
+[sub_resource type="Animation" id="Animation_6ejl3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneTransitor/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j7dov"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneTransitor/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1wpv4"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneTransitor/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y13jv"]
+_data = {
+"RESET": SubResource("Animation_6ejl3"),
+"fade_in": SubResource("Animation_j7dov"),
+"fade_out": SubResource("Animation_1wpv4")
+}
+
+[sub_resource type="GDScript" id="GDScript_el1tk"]
+script/source = "extends AnimationPlayer
+
+var needed_scene
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#Singleton.SceneTransitor = get_node(\".\")
+	pass # Replace with function body.
+
+func _on_animation_finished(anim_name):
+	if anim_name == \"fade_out\":
+		play(\"RESET\")
+		$ColorRect.hide()
+	elif anim_name == \"fade_in\" && needed_scene != null:
+		get_tree().change_scene_to_file(needed_scene)
+
+func fade_out():
+	$ColorRect.show()
+	play(\"fade_out\")
+
+func fade_in():
+	$ColorRect.show()
+	play(\"fade_in\")
+
+func load_scene(sceneName):
+	needed_scene = sceneName
+	$ColorRect.show()
+	play(\"fade_in\")
+	pass
+"
+
+[node name="SceneTransitor" type="AnimationPlayer"]
+libraries = {
+"": SubResource("AnimationLibrary_y13jv")
+}
+script = SubResource("GDScript_el1tk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

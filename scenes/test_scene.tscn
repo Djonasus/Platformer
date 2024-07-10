@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dp3w4lf6n0cws"]
+
+[ext_resource type="PackedScene" uid="uid://mgx1c2j7yjqv" path="res://objects/player/player.tscn" id="1_cwua7"]
+[ext_resource type="Material" path="res://materials/TestMaterial.tres" id="2_vv22j"]
+[ext_resource type="PackedScene" uid="uid://wu4i2gc7uarx" path="res://objects/camera/camera.tscn" id="3_uw34w"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_suw0t"]
+
+[sub_resource type="Sky" id="Sky_ylc5m"]
+sky_material = SubResource("ProceduralSkyMaterial_suw0t")
+
+[sub_resource type="Environment" id="Environment_y6mp5"]
+background_mode = 2
+sky = SubResource("Sky_ylc5m")
+
+[node name="TestScene" type="Node3D"]
+
+[node name="GG" parent="." instance=ExtResource("1_cwua7")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.520371, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.29815, 0, -1)
+material_override = ExtResource("2_vv22j")
+use_collision = true
+collision_layer = 2
+size = Vector3(76.9297, 1, 90.4346)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0, -5)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y6mp5")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00622559, 2.296, -3.75527)
+material_override = ExtResource("2_vv22j")
+use_collision = true
+collision_layer = 2
+size = Vector3(7.99194, 3.89502, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.856925, 2.25307e-08, 0.515442, 0.515442, -3.74574e-08, -0.856925, 0, 1, -4.37114e-08, 49.4259, 5.82025, -0.687948)
+material_override = ExtResource("2_vv22j")
+use_collision = true
+collision_layer = 2
+size = Vector3(25.0209, 76.2275, 1)
+
+[node name="Camera" parent="." instance=ExtResource("3_uw34w")]
+current = true

@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhuagxeojpjkw"]
+
+[ext_resource type="Texture2D" uid="uid://c2xemmyuxqyy2" path="res://sprites/Naming.png" id="1_dtrwa"]
+[ext_resource type="PackedScene" uid="uid://dculran0rf84u" path="res://objects/ui/scene_transitor.tscn" id="2_qmwdu"]
+
+[sub_resource type="GDScript" id="GDScript_v4gdn"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$SceneTransitor.fade_out()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_timer_timeout():
+	$SceneTransitor.load_scene(\"res://scenes/PlayerUI/player_startup.tscn\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_rs3jw"]
+script/source = "extends TextureRect
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	#scale += Vector2(0.01 * delta,0.01 * delta)
+	#position -= Vector2(5 * delta,5 * delta)
+	pass
+"
+
+[node name="Startup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_v4gdn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1156.0
+offset_top = -753.0
+offset_right = 1156.0
+offset_bottom = 753.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dtrwa")
+expand_mode = 2
+stretch_mode = 5
+script = SubResource("GDScript_rs3jw")
+
+[node name="SceneTransitor" parent="." instance=ExtResource("2_qmwdu")]
+speed_scale = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

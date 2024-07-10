@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcwkd3hw3orld"]
+
+[ext_resource type="Texture2D" uid="uid://bsmdeti0i7trm" path="res://sprites/roboticsStar.png" id="1_5aln0"]
+[ext_resource type="FontFile" uid="uid://cavwxwbuvh7jg" path="res://fonts/basis33.ttf" id="2_8glb7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iuujx"]
+font = ExtResource("2_8glb7")
+font_size = 54
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -425.0
+offset_top = 25.0
+offset_right = -28.0
+offset_bottom = 422.0
+grow_horizontal = 0
+texture = ExtResource("1_5aln0")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 24.0
+offset_right = 449.0
+offset_bottom = 457.0
+text = "Android Modular BIOS v2.0
+
+Main Processor : QuantumCore 128-bit
+
+Reading Bootloader Segment Data...
+Initializing OS...
+
+
+Loading primary systems...
+Loading secondary systems...
+
+Loading primary target...
+Primary target : Disable Human-killer laser.
+Secondary target : Destroy Machine Lifeforms."
+label_settings = SubResource("LabelSettings_iuujx")

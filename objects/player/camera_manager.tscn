@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://betcwyl8d66fo"]
+
+[ext_resource type="PackedScene" uid="uid://brfgpy42pvd2o" path="res://objects/camera/operator.tscn" id="1_r5jh1"]
+
+[sub_resource type="GDScript" id="GDScript_evx3g"]
+script/source = "extends Node3D
+
+
+var camrot_h = 0
+var camrot_v = 0
+@export var cam_speed = 10
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	camrot_v = clamp(camrot_v, -180, 320)
+	$h.rotation_degrees.y = camrot_h * delta * cam_speed
+	$h/v.rotation_degrees.x = camrot_v * delta * cam_speed
+	pass
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		camrot_h += -event.relative.x
+		camrot_v += event.relative.y
+		#camrot_v = clamp(camrot_v, -120, 240)
+		pass
+	if event.is_action_pressed(\"ui_cancel\"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+"
+
+[node name="CameraManager" type="Node3D"]
+script = SubResource("GDScript_evx3g")
+
+[node name="h" type="Node3D" parent="."]
+
+[node name="v" type="Node3D" parent="h"]
+transform = Transform3D(1, 0, 1.86265e-09, 0, 1, 0, 0, 0, 1, 0, 10.9046, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="h/v"]
+transform = Transform3D(-1, 4.84288e-08, -7.07805e-08, 0, 0.812379, 0.58313, 8.56817e-08, 0.58313, -0.812379, 0, 0, 0)
+collision_mask = 2
+spring_length = 35.0
+
+[node name="Operator" parent="h/v/SpringArm3D" instance=ExtResource("1_r5jh1")]
+transform = Transform3D(1, 1.77636e-15, -7.10543e-15, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 1.8908e-07, 0.0407791, 34.8789)
+Current = true
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Up" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.1255
+offset_bottom = 0.399994
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Up2" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.873333
+anchor_right = 1.0
+anchor_bottom = 0.998833
+offset_bottom = 0.399994
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true

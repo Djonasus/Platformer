@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://wu4i2gc7uarx"]
+
+[sub_resource type="GDScript" id="GDScript_jdn2p"]
+script/source = "extends Camera3D
+class_name CinemachineCamera
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#await Cinemachine.MainOperator.ready
+	print(\"Camera\")
+	Cinemachine.on_reconnect.connect(_on_reconnect)
+	Cinemachine.MainCamera = self
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#position = Cinemachine.MainOperator.global_position
+	#rotation = Cinemachine.MainOperator.global_rotation
+	#rotation = Cinemachine.MainOperator.basis.get_euler()
+	#position = lerp(Cinemachine.MainOperator.position, position, delta * Cinemachine.TransitionSpeed) 
+	#rotation = lerp(Cinemachine.MainOperator.rotation, rotation, delta * Cinemachine.TransitionSpeed) 
+	pass
+
+func _on_reconnect():
+	reparent(Cinemachine.MainOperator)
+	pass
+"
+
+[node name="Camera" type="Camera3D"]
+script = SubResource("GDScript_jdn2p")
