@@ -15,7 +15,7 @@ sky = SubResource("Sky_ylc5m")
 
 [node name="TestScene" type="Node3D"]
 
-[node name="GG" parent="." instance=ExtResource("1_cwua7")]
+[node name="Player" parent="." instance=ExtResource("1_cwua7")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.520371, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -46,4 +46,4 @@ collision_layer = 2
 size = Vector3(25.0209, 76.2275, 1)
 
 [node name="Camera" parent="." instance=ExtResource("3_uw34w")]
-current = true
+process_mode = 4

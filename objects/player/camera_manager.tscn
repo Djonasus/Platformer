@@ -19,9 +19,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	camrot_v = clamp(camrot_v, -180, 320)
+	
+	camrot_v = clamp(camrot_v, -180, 180)
 	$h.rotation_degrees.y = camrot_h * delta * cam_speed
 	$h/v.rotation_degrees.x = camrot_v * delta * cam_speed
+	#$h/v/SpringArm3D/Operator.look_at(global_position)
 	pass
 
 func _input(event):
@@ -40,7 +42,7 @@ script = SubResource("GDScript_evx3g")
 [node name="h" type="Node3D" parent="."]
 
 [node name="v" type="Node3D" parent="h"]
-transform = Transform3D(1, 0, 1.86265e-09, 0, 1, 0, 0, 0, 1, 0, 10.9046, 0)
+transform = Transform3D(1, 0, 1.86265e-09, 0, 1, 0, 0, 0, 1, 0, 1.73959, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="h/v"]
 transform = Transform3D(-1, 4.84288e-08, -7.07805e-08, 0, 0.812379, 0.58313, 8.56817e-08, 0.58313, -0.812379, 0, 0, 0)
@@ -48,8 +50,10 @@ collision_mask = 2
 spring_length = 35.0
 
 [node name="Operator" parent="h/v/SpringArm3D" instance=ExtResource("1_r5jh1")]
-transform = Transform3D(1, 1.77636e-15, -7.10543e-15, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 1.8908e-07, 0.0407791, 34.8789)
+process_mode = 4
 Current = true
+
+[node name="Camera3D" type="Camera3D" parent="h/v/SpringArm3D"]
 
 [node name="Control" type="Control" parent="."]
 visible = false

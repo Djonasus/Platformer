@@ -20,7 +20,7 @@ func _process(delta):
 
 func SetMain():
 	Cinemachine.MainOperator = self
-	Cinemachine.on_reconnect.emit()
+	#Cinemachine.on_reconnect.emit()
 	#self.add_child(Cinemachine.MainCamera)
 "
 
